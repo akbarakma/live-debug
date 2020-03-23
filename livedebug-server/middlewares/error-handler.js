@@ -4,10 +4,9 @@ module.exports = function(err, req, res, next) {
     res.status(err.code).json({
       message: err.resource + ' not found',
     });
-  } else if (stringifiedErr.indexOf('SequelizeValidationError') === -1) {
+  } else if (stringifiedErr.indexOf('SequelizeValidationError') !== -1) {
     const validateErrors = err.errors;
     const errors = [];
-
     for (let key in validateErrors) {
       errors.push(validateErrors[key].message);
     }
@@ -22,12 +21,6 @@ module.exports = function(err, req, res, next) {
     }
 
     res.status(400).json({ errors });
-  } else if (err.name === 'SequelizeValidationError') {
-    let msg = [];
-    err.errors.forEach(x => {
-      msg.push(x.message);
-    });
-    res.status(400).json({ errors: msg });
   } else {
     console.log(err);
 

@@ -44,79 +44,79 @@ beforeAll(done => {
     .catch(err => done(err))
 })
 
-// describe('Loan Routes Test', () => {
-//   describe('POST /loans - Create new Loan', () => {
-//     test(`Should return status 201 and object of new loan`, function (done) {
-//       const date_loaned = new Date()
-//       const data = {
-//         MemberId: member1.id,
-//         BookId: book1.id,
-//         date_loaned
-//       };
-//       request(app)
-//         .post('/loans')
-//         .send(data)
-//         .then(response => {
-//           const { body, status } = response;
-//           expect(status).toBe(201);
-//           expect(body).toHaveProperty('id', expect.any(Number));
-//           expect(body).toHaveProperty('MemberId', data.MemberId);
-//           expect(body).toHaveProperty('BookId', data.BookId);
-//           expect(body).toHaveProperty('date_loaned');
-//           expect(body).toHaveProperty('date_returned', null);
-//           loanId = body.id
-//           done();
-//         });
-//     })
-//   })
-//   describe('POST /loans - Errors when creating new loan', () => {
-//     test('Should send an error - (Empty Body, code: 400)', (done) => {
-//       const expectedErrors = ["MemberId is required", "BookId is required", "Date loaned is required"]
-//       request(app)
-//         .post('/loans')
-//         .send({})
-//         .then(response => {
-//           const { body, status } = response;
-//           expect(status).toBe(400);
-//           expect(body).toHaveProperty('errors', expect.any(Array));
-//           expect(body.errors).toEqual(expect.arrayContaining(expectedErrors));
-//           done();
-//         });
-//     })
-//   })
-//   describe('GET /loans - findAll loan', () => {
-//     test(`Should return status 200 and array of object loan`, function (done) {
-//       request(app)
-//         .get('/loans')
-//         .then(response => {
-//           const { body, status } = response;
-//           expect(status).toBe(200);
-//           expect(body.length).toBe(1)
-//           const firstData = body[0]
-//           expect(firstData).toHaveProperty('id', expect.any(Number));
-//           expect(firstData).toHaveProperty('MemberId', member1.id);
-//           expect(firstData).toHaveProperty('BookId', book1.id);
-//           expect(firstData).toHaveProperty('date_loaned');
-//           expect(firstData).toHaveProperty('date_returned', null);
-//           done();
-//         });
-//     })
-//   })
-//   describe('PATCH /loans - update returned date', () => {
-//     test(`Should return status 200 and success message`, function (done) {
-//       const date_returned = new Date()
-//       const data = {
-//         date_returned 
-//       };
-//       request(app)
-//         .patch('/loans/' + loanId)
-//         .send(data)
-//         .then(response => {
-//           const { body, status } = response;
-//           expect(status).toBe(200);
-//           expect(body).toHaveProperty('message', 'Successfully returned');
-//           done();
-//         });
-//     })
-//   })
-// })
+describe('Loan Routes Test', () => {
+  describe('POST /loans - Create new Loan', () => {
+    test(`Should return status 201 and object of new loan`, function (done) {
+      const date_loaned = new Date()
+      const data = {
+        MemberId: member1.id,
+        BookId: book1.id,
+        date_loaned
+      };
+      request(app)
+        .post('/loans')
+        .send(data)
+        .then(response => {
+          const { body, status } = response;
+          expect(status).toBe(201);
+          expect(body).toHaveProperty('id', expect.any(Number));
+          expect(body).toHaveProperty('MemberId', data.MemberId);
+          expect(body).toHaveProperty('BookId', data.BookId);
+          expect(body).toHaveProperty('date_loaned');
+          expect(body).toHaveProperty('date_returned', null);
+          loanId = body.id
+          done();
+        });
+    })
+  })
+  describe('POST /loans - Errors when creating new loan', () => {
+    test('Should send an error - (Empty Body, code: 400)', (done) => {
+      const expectedErrors = ["MemberId is required", "BookId is required", "Date loaned is required"]
+      request(app)
+        .post('/loans')
+        .send({})
+        .then(response => {
+          const { body, status } = response;
+          expect(status).toBe(400);
+          expect(body).toHaveProperty('errors', expect.any(Array));
+          expect(body.errors).toEqual(expect.arrayContaining(expectedErrors));
+          done();
+        });
+    })
+  })
+  describe('GET /loans - findAll loan', () => {
+    test(`Should return status 200 and array of object loan`, function (done) {
+      request(app)
+        .get('/loans')
+        .then(response => {
+          const { body, status } = response;
+          expect(status).toBe(200);
+          expect(body.length).toBe(1)
+          const firstData = body[0]
+          expect(firstData).toHaveProperty('id', expect.any(Number));
+          expect(firstData).toHaveProperty('MemberId', member1.id);
+          expect(firstData).toHaveProperty('BookId', book1.id);
+          expect(firstData).toHaveProperty('date_loaned');
+          expect(firstData).toHaveProperty('date_returned', null);
+          done();
+        });
+    })
+  })
+  describe('PATCH /loans - update returned date', () => {
+    test(`Should return status 200 and success message`, function (done) {
+      const date_returned = new Date()
+      const data = {
+        date_returned 
+      };
+      request(app)
+        .patch('/loans/' + loanId)
+        .send(data)
+        .then(response => {
+          const { body, status } = response;
+          expect(status).toBe(200);
+          expect(body).toHaveProperty('message', 'Successfully returned');
+          done();
+        });
+    })
+  })
+})
