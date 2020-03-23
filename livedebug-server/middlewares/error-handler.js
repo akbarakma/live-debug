@@ -1,4 +1,4 @@
-module.exports = function(req, res, next) {
+module.exports = function(err, req, res, next) {
   const stringifiedErr = JSON.stringify(err);
   if (err.code === 404) {
     res.status(err.code).json({
@@ -22,6 +22,12 @@ module.exports = function(req, res, next) {
     }
 
     res.status(400).json({ errors });
+  } else if (err.name === 'SequelizeValidationError') {
+    let msg = [];
+    err.errors.forEach(x => {
+      msg.push(x.message);
+    });
+    res.status(400).json({ errors: msg });
   } else {
     console.log(err);
 
